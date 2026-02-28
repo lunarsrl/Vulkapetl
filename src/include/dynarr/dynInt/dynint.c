@@ -11,7 +11,7 @@ dynInt initDynInt(int length) {
 };
 
 void pushDynInt(dynInt *arr, int item) {
-    if (arr->size < (arr->length+1) * sizeof(int)) {
+    if (arr->size < (arr->length) * sizeof(int)) {
         arr->items = realloc(arr->items, arr-> length * arr->size);
     }
     arr->items[arr->length] = item;

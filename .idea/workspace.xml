@@ -19,15 +19,31 @@
   <component name="CMakeRunConfigurationManager">
     <generated>
       <config projectName="Vulkapetl" targetName="all" />
+      <config projectName="Vulkapetl" targetName="dynint" />
       <config projectName="Vulkapetl" targetName="graphics" />
       <config projectName="Vulkapetl" targetName="default" />
+      <config projectName="Vulkapetl" targetName="dynstr" />
+      <config projectName="Vulkapetl" targetName="log" />
+      <config projectName="Vulkapetl" targetName="include" />
     </generated>
   </component>
   <component name="CMakeSettings">
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4dd5078a-5052-4bd3-9d78-08461a2dbdff" name="Changes" comment="" />
+    <list default="true" id="4dd5078a-5052-4bd3-9d78-08461a2dbdff" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graphics/graphics.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphics/graphics.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graphics/graphics.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphics/graphics.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/include/dynarr/dynInt/dynint.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/include/dynarr/dynInt/dynint.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/include/logger/log.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/include/logger/log.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/include/logger/log.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/include/logger/log.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/graphics.o" beforeDir="false" afterPath="$PROJECT_DIR$/tests/graphics.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,6 +57,9 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/graphics/graphics.c" root0="FORCE_HIGHLIGHTING" />
@@ -106,30 +125,29 @@
     "Makefile Target.app.executor": "Run",
     "Makefile Target.default.executor": "Run",
     "Makefile Target.graphics.executor": "Run",
+    "Makefile Target.log.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Native Application.all.executor": "Run",
     "RunOnceActivity.RadMigrateCodeStyle": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "RunOnceActivity.west.config.association.type.startup.service": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/home/srl/Programming/Vulkapetl",
     "nodejs_package_manager_path": "npm",
     "org.rust.first.attach.projects": "true",
-    "settings.editor.selected.configurable": "MakefileSettings",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager" selected="Native Application.all">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Vulkapetl" TARGET_NAME="all" CONFIG_NAME="all" version="1" RUN_PATH="$PROJECT_DIR$/tests/test">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
@@ -140,16 +158,65 @@
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
     </configuration>
+    <configuration name="dynint" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Vulkapetl" TARGET_NAME="dynint" CONFIG_NAME="dynint" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="dynstr" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Vulkapetl" TARGET_NAME="dynstr" CONFIG_NAME="dynstr" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="graphics" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Vulkapetl" TARGET_NAME="graphics" CONFIG_NAME="graphics" version="1">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
     </configuration>
+    <configuration name="include" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Vulkapetl" TARGET_NAME="include" CONFIG_NAME="include" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="log" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Vulkapetl" TARGET_NAME="log" CONFIG_NAME="log" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="default" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="default" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="log" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="log" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Makefile Target.default" />
+      <item itemvalue="Makefile Target.log" />
       <item itemvalue="Native Application.all" />
       <item itemvalue="Native Application.default" />
+      <item itemvalue="Native Application.dynint" />
+      <item itemvalue="Native Application.dynstr" />
       <item itemvalue="Native Application.graphics" />
+      <item itemvalue="Native Application.include" />
+      <item itemvalue="Native Application.log" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile Target.default" />
+        <item itemvalue="Makefile Target.log" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
@@ -166,7 +233,8 @@
       <workItem from="1772051025334" duration="638000" />
       <workItem from="1772051671406" duration="52000" />
       <workItem from="1772051726719" duration="10000" />
-      <workItem from="1772051749987" duration="2889000" />
+      <workItem from="1772051749987" duration="32656000" />
+      <workItem from="1772232833238" duration="8969000" />
     </task>
     <servers />
   </component>

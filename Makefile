@@ -4,15 +4,19 @@ LDFLAGS = -lglfw -lvulkan
 default: all
 
 all: graphics include
-	gcc $(root)src/main.c $(root)tests/graphics.o $(root)tests/dynarr.o $(root)tests/logger.o -o $(root)tests/test $(LDFLAGS)
+	gcc $(root)src/main.c $(root)tests/graphics.o $(root)tests/log.o $(root)tests/dynint.o $(root)tests/dynstring.o -o $(root)tests/test $(LDFLAGS)
 
 
 graphics:
 	gcc -c $(root)src/graphics/graphics.c -o $(root)tests/graphics.o
 
-include: dynarr logger
+include: dynint dynstr log
+dyndir = $(root)src/include/dynarr/
 
-dynarr:
-	gcc -c $(root)src/include/dynarr/dynarr.c -o ${root}tests/dynarr.o
-logger:
-	gcc -c $(root)src/include/dynarr/dynarr.c -o ${root}tests/logger.o
+log:
+	gcc -c $(root)src/include/logger/log.c -o $(root)tests/log.o
+dynint:
+	gcc -c $(dyndir)dynInt/dynint.c -o $(root)tests/dynint.o
+dynstr:
+	gcc -c $(dyndir)dynString/dynstring.c -o $(root)tests/dynstring.o
+
