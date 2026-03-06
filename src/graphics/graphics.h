@@ -5,11 +5,14 @@
 
 struct vulkapetl {
     VkInstance instance;
+    VkDevice logi_gpu;
+    VkPhysicalDevice phys_gpu;
 } typedef Vulkapetl;
 
 VkInstance vulkan_init();
 GLFWwindow *glfw_init();
 void pickVulkanPhysDevice(Vulkapetl*);
+void createLogicalDevice(Vulkapetl* appmodel);
 void mainloop(GLFWwindow* window);
 void glfw_exit(GLFWwindow* window);
 

@@ -10,6 +10,7 @@ int main() {
     // Initialization
     appmodel.instance = vulkan_init();
     pickVulkanPhysDevice(&appmodel);
+    createLogicalDevice(&appmodel);
     GLFWwindow* main_window = glfw_init();
     mainloop(main_window);
     glfw_exit(main_window);

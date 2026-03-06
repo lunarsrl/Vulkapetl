@@ -102,6 +102,30 @@ GLFWwindow *glfw_init() {
     return window;
 }
 
+
+int findQueueFamilies(const VkPhysicalDevice* device) {
+    printf("Function: Find Queue Families\n");
+    uint32_t queue_count;
+    vkGetPhysicalDeviceQueueFamilyProperties2(*device, &queue_count, nullptr);
+
+    printf("> Queue Total: %i\n", queue_count);
+    VkQueueFamilyProperties properties[queue_count];
+
+    vkGetPhysicalDeviceQueueFamilyProperties(*device, &queue_count, properties);
+
+    for (int i = 0; i < queue_count; ++i) {
+        printf("> > Queue Family #%i\n", i);
+        printf("> > > Queues in family: %i\n", properties[i].queueCount);
+
+        if (properties[i].queueFlags & VK_QUEUE_GRAPHICS_BIT) {
+            printf("> > > contains graphics queue!\n");
+            return i;
+        }
+
+    }
+    return 0
+}
+
 void pickVulkanPhysDevice(Vulkapetl* model) {
     uint32_t device_count = 0;
     VkResult result = vkEnumeratePhysicalDevices(model->instance, &device_count, nullptr);
@@ -119,24 +143,60 @@ void pickVulkanPhysDevice(Vulkapetl* model) {
 
     printf("Device Count: %i\n", device_count);
     VkPhysicalDevice devices[device_count];
-    vkEnumeratePhysicalDevices(model->instance, &device_count, devices);
+    VkResult a = vkEnumeratePhysicalDevices(model->instance, &device_count, devices);
 
     for (int i = 0; i < device_count; ++i) {
         printf("Device #%i\n", i);
-        VkPhysicalDeviceProperties properties;
-        VkPhysicalDeviceFeatures features;
-        vkGetPhysicalDeviceProperties(devices[i], &properties);
-        vkGetPhysicalDeviceFeatures(devices[i], &features);
+        VkPhysicalDevice* device = &devices[i];
+        VkPhysicalDeviceProperties2 properties;
+        VkPhysicalDeviceFeatures2 features;
 
-        printf("> Name: %s \n> Id: %i\n", properties.deviceName, properties.deviceID);
-        printf("> Geometry Shader?: %i \n> Tesselation Shader?: %i\n", features.geometryShader, features.tessellationShader);
+
+        vkGetPhysicalDeviceProperties2(*device, &properties);
+        vkGetPhysicalDeviceFeatures2(*device, &features);
+
+        printf("> Name: %s \n> Id: %i\n", properties.properties.deviceName, properties.properties.deviceID);
+        printf("> Geometry Shader?: %i \n> Tesselation Shader?: %i\n", features.features.geometryShader, features.features.tessellationShader);
+
+        if (findQueueFamilies(device)) {
+            model->phys_gpu = *device;
+            break;
+        }
     }
+    printf("EXITING...");
 }
 
-void findQueueFamilies(VkPhysicalDevice* device) {
-    VkQueueFamilyProperties properties;
-    int32_t queue_count;
-    vkGetPhysicalDeviceQueueFamilyProperties2(*device, &queue_count, NULL);
+void createLogicalDevice(Vulkapetl* model) {
+    VkDeviceQueueCreateInfo info;
+    float queue_priority = 1.0f;
+
+
+
+    info.queueFamilyIndex= findQueueFamilies(&model->phys_gpu);
+    info.queueCount = 1;
+    info.pQueuePriorities = &queue_priority;
+    info.pNext = nullptr;
+    info.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+    // doesnt do anything :(
+    info.flags = 0;
+
+    // Vulkan Feature Structs
+    VkPhysicalDeviceFeatures2 vulkan_device_features2;
+    vulkan_device_features2.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2;
+
+    VkPhysicalDeviceVulkan13Features device_vulkan13_features;
+    device_vulkan13_features.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES;
+    device_vulkan13_features.dynamicRendering = VK_TRUE;
+
+    VkPhysicalDeviceExtendedDynamicStateFeaturesEXT ext_dyn_state_features;
+    ext_dyn_state_features.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_FEATURES_EXT;
+    ext_dyn_state_features.extendedDynamicState = VK_TRUE;
+
+    // --- Feature struct chaining
+    ext_dyn_state_features.pNext = nullptr;
+    device_vulkan13_features.pNext = &ext_dyn_state_features;
+    vulkan_device_features2.pNext = &device_vulkan13_features;
+
 
 }
 
