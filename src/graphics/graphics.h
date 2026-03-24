@@ -10,7 +10,7 @@ struct vulkapetl {
 } typedef Vulkapetl;
 
 VkInstance vulkan_init();
-GLFWwindow *glfw_init();
+GLFWwindow* glfw_init();
 void pickVulkanPhysDevice(Vulkapetl*);
 void createLogicalDevice(Vulkapetl* appmodel);
 void mainloop(GLFWwindow* window);

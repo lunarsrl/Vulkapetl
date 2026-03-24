@@ -35,7 +35,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/graphics/graphics.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphics/graphics.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/graphics/graphics.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphics/graphics.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/include/dynarr/dynChar/dynchar.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/include/dynarr/dynChar/dynchar.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/include/dynarr/dynString/dynstring.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/include/dynarr/dynString/dynstring.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/include/dynarr/dynString/dynstring.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/include/dynarr/dynString/dynstring.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/dynstring.o" beforeDir="false" afterPath="$PROJECT_DIR$/tests/dynstring.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/graphics.o" beforeDir="false" afterPath="$PROJECT_DIR$/tests/graphics.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/test" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test" afterDir="false" />
     </list>
@@ -225,7 +228,11 @@
       <workItem from="1772051726719" duration="10000" />
       <workItem from="1772051749987" duration="32656000" />
       <workItem from="1772232833238" duration="9582000" />
-      <workItem from="1772734074615" duration="13695000" />
+      <workItem from="1772734074615" duration="22829000" />
+      <workItem from="1773433700205" duration="11240000" />
+      <workItem from="1773967326288" duration="250000" />
+      <workItem from="1774278901157" duration="6700000" />
+      <workItem from="1774373736546" duration="10853000" />
     </task>
     <servers />
   </component>

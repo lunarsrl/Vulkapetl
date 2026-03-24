@@ -10,5 +10,6 @@ struct dynString {
 
 dynStr initDynStr(int length);
 void pushDynStr(dynStr* arr, char* item);
-void delDynStr(dynStr* arr);
+void delDynStr(dynStr* arr, int index);
+void freeDynStr(dynStr* arr);
 #endif

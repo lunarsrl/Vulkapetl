@@ -9,6 +9,6 @@ struct dynChar{
 } typedef dynChar;
 
 dynChar initDynChar(int length);
-void pushDynChar(dynChar* arr, int item);
+void pushDynChar(dynChar* arr, char item);
 void delDynChar(dynChar* arr);
 #endif

@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "../include/dynarr/dynString/dynstring.h"
+#include "../include/dynarr/dynChar/dynchar.h"
 #include "../include/logger/log.h"
 #define GLFW_INCLUDE_VULKAN
 #define debug_print(fmt, ...) \
@@ -25,8 +26,11 @@
 
 
 void mainloop(GLFWwindow *);
-
 void glfw_exit(GLFWwindow *);
+dynStr get_required_ext_properties();
+dynStr get_requested_layers();
+
+
 
 VkInstance vulkan_init() {
     VkApplicationInfo appinfo;
@@ -41,30 +45,16 @@ VkInstance vulkan_init() {
     VkInstanceCreateInfo createinfo;
     createinfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     createinfo.pApplicationInfo = &appinfo;
-    createinfo.enabledLayerCount = 0;
     // requesting glfw extensions
 
-    uint32_t glfwextcount= 0;
-    const char** extensions = glfwGetRequiredInstanceExtensions(&glfwextcount);
-    // VkResult extension Properties = vkEnumerateInstanceExtensionProperties("fe", glfwextcount, );
+    dynStr layers = get_requested_layers();
+    dynStr extproperties = get_required_ext_properties();
 
+    createinfo.enabledLayerCount = layers.length;
+    createinfo.ppEnabledLayerNames = (const char * const *) layers.items;
+    createinfo.enabledExtensionCount = extproperties.length;
+    createinfo.ppEnabledExtensionNames = (const char * const *)extproperties.items;
 
-    if (extensions == NULL) {
-        info("No extentions needed (EXTENTIONS NOT SUPPORTED YET)");
-    } else {
-        for (int i = 0; i > glfwextcount; ++i) {
-            char* mesg = strcat("[ext|", "" + (0+i));
-            info(mesg);
-        }
-
-        if (glfwextcount == 0) {
-            warning("No extentions loaded");
-        }
-    }
-
-
-    createinfo.enabledExtensionCount = glfwextcount;
-    createinfo.ppEnabledExtensionNames = NULL;
     createinfo.pNext = NULL;
 
     VkInstance instance;
@@ -78,7 +68,86 @@ VkInstance vulkan_init() {
 
 }
 
-GLFWwindow *glfw_init() {
+dynStr get_required_ext_properties() {
+    uint32_t e_count = 0;
+    dynStr req_ext = initDynStr(5);
+
+    const char**  a = glfwGetRequiredInstanceExtensions(&e_count);
+    for (int i = 0; i<e_count; ++i) {
+        pushDynStr(&req_ext, (char*) a[i]);
+    }
+    uint32_t p_count = 0;
+    vkEnumerateInstanceExtensionProperties(NULL, &p_count, NULL);
+    VkExtensionProperties extention_properties[p_count];
+    VkResult result = vkEnumerateInstanceExtensionProperties(NULL, &p_count, extention_properties);
+    switch (result) {
+        case VK_SUCCESS:
+            success("All extension properties returned");
+            break;
+        case VK_INCOMPLETE:
+            success("Not all extension properties returned");
+            break;
+        default:
+            panic("Failed to return extension properties");
+    }
+
+    for (int i = 0; i < p_count; ++i) {
+        if (req_ext.length == 0) {
+            break;
+        }
+        for (int l = 0; l < req_ext.length; ++l) {
+            if (strcmp(req_ext.items[l], extention_properties[i].extensionName)) {
+                delDynStr(&req_ext, l);
+            };
+        }
+    }
+
+    if (req_ext.length == 0 ) {
+        success("All requirements met (extention properties)");
+    } else {
+        panic("Missing required extention properties");
+    }
+    return req_ext;
+}
+
+dynStr get_requested_layers() {
+    dynStr layers_req = initDynStr(1);
+    pushDynStr(&layers_req, "VK_LAYER_KHRONOS_validation");
+
+    int lp_count;
+    vkEnumerateInstanceLayerProperties(&lp_count, nullptr);
+    printf("%i \n", lp_count);
+    VkLayerProperties layer_properties[lp_count];
+    VkResult resultlp = vkEnumerateInstanceLayerProperties(&lp_count, layer_properties);
+    switch (resultlp) {
+        case VK_SUCCESS:
+            success("All layer properties found");
+            break;
+        case VK_INCOMPLETE:
+            warning("Some layer properties found");
+            break;
+        default:
+            panic("Layer properties not found");
+            break;
+    }
+
+    for (int j = 0; j< lp_count; ++j) {
+        for (int i = 0; i < layers_req.length; ++i) {
+            if (strcmp(layers_req.items[i], layer_properties[j].layerName)) {
+                delDynStr(&layers_req, i);
+            }
+        }
+    }
+
+    if (layers_req.length == 0 ) {
+        success("All requirements met (layer properties)");
+    } else {
+        panic("Missing required validation layers");
+    }
+    return layers_req;
+}
+
+GLFWwindow* glfw_init() {
     glfwInit();
     if (GLFW_FALSE == glfwInit()) {
         printf("Failed to initalize glfw");
@@ -89,14 +158,6 @@ GLFWwindow *glfw_init() {
 
     const uint32_t SWIDTH = 800;
     const uint32_t SHEIGHT = 600;
-
-    dynStr vaLayers = initDynStr(1);
-    pushDynStr(&vaLayers, "VK_LAYER_KHRONOS_validation");
-
-    if (DEBUG_TEST) {
-
-
-    }
 
     GLFWwindow *window = glfwCreateWindow(SWIDTH, SHEIGHT, "Vulkan is fun guys", NULL, NULL);
     return window;
@@ -123,7 +184,7 @@ int findQueueFamilies(const VkPhysicalDevice* device) {
         }
 
     }
-    return 0
+    return -1;
 }
 
 void pickVulkanPhysDevice(Vulkapetl* model) {
@@ -158,12 +219,13 @@ void pickVulkanPhysDevice(Vulkapetl* model) {
         printf("> Name: %s \n> Id: %i\n", properties.properties.deviceName, properties.properties.deviceID);
         printf("> Geometry Shader?: %i \n> Tesselation Shader?: %i\n", features.features.geometryShader, features.features.tessellationShader);
 
-        if (findQueueFamilies(device)) {
+        if (findQueueFamilies(device) != -1) {
+            printf("PHYS DEVICE PICKED \n");
             model->phys_gpu = *device;
             break;
         }
     }
-    printf("EXITING...");
+    printf("EXITING PICK DEVICE... \n");
 }
 
 void createLogicalDevice(Vulkapetl* model) {
@@ -171,8 +233,7 @@ void createLogicalDevice(Vulkapetl* model) {
     float queue_priority = 1.0f;
 
 
-
-    info.queueFamilyIndex= findQueueFamilies(&model->phys_gpu);
+    info.queueFamilyIndex = findQueueFamilies(&model->phys_gpu);
     info.queueCount = 1;
     info.pQueuePriorities = &queue_priority;
     info.pNext = nullptr;
