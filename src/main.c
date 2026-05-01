@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "graphics/graphics.h"
+#include  "graphics/GraphicsPipeline.h"
 #include "include/dynarr/dynString/dynstring.h"
+#include "include/logger/log.h"
 
 
 int main() {
@@ -8,11 +10,17 @@ int main() {
     Vulkapetl appmodel;
 
     // Initialization
-    appmodel.instance = vulkan_init();
-    pickVulkanPhysDevice(&appmodel);
-    createLogicalDevice(&appmodel);
-    GLFWwindow* main_window = glfw_init();
-    mainloop(main_window);
-    glfw_exit(main_window);
+    appmodel.main_window = glfw_init();
+    vulkan_init(&appmodel);
+    pivk_vulkan_phys_device(&appmodel);
+    create_logi_device(&appmodel);
+    create_swapchain(&appmodel);
+    create_image_views(&appmodel);
+
+    create_graphics_pipeline(&appmodel);
+
+    mainloop(appmodel.main_window);
+    glfw_exit(appmodel.main_window);
+    printf("Successful exit");
 }
 

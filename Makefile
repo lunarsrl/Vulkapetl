@@ -1,14 +1,15 @@
 root = /home/srl/Programming/Vulkapetl/
-LDFLAGS = -lglfw -lvulkan
+LDFLAGS = -lglfw -lvulkan -g
 
 default: all
 
 all: graphics include
-	gcc $(root)src/main.c $(root)tests/graphics.o $(root)tests/log.o $(root)tests/dynint.o $(root)tests/dynstring.o -o $(root)tests/test $(LDFLAGS)
+	gcc $(root)src/main.c $(root)tests/graphics.o $(root)tests/log.o $(root)tests/dynint.o $(root)tests/pipeline.o $(root)tests/dynstring.o -o $(root)tests/test $(LDFLAGS)
 
 
 graphics:
 	gcc -c $(root)src/graphics/graphics.c -o $(root)tests/graphics.o
+	gcc -c $(root)src/graphics/GraphicsPipeline.c -o $(root)tests/pipeline.o
 
 include: dynint dynstr log
 dyndir = $(root)src/include/dynarr/
